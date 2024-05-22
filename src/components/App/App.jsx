@@ -6,6 +6,7 @@ import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import SearchBar from "../SearchBar/SearchBar"; 
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "../ImageModal/ImageModal";
 import css from "./App.module.css";
 
 
@@ -15,6 +16,9 @@ export default function App() {
   const [isError, setIsError] = useState(false);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedImageUrl, setSelectedImageUrl] = useState("");
+  
 
   useEffect(() => {
     if (searchQuery.trim() === "") {
@@ -46,19 +50,34 @@ export default function App() {
     setPage(page + 1);   
   };
 
+  const openModal = (imageUrl) => {
+    setSelectedImageUrl(imageUrl);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+      setSelectedImageUrl("");
+      setModalIsOpen(false);
+  };
+
   return (
     <>
-      <h1>Hello This Search Images!!!!</h1>
+      <h1 className={css.h1}>Hello This Search Images!!!!</h1>
       <SearchBar onSubmit={handleSearch}/>
       
       {isError && <ErrorMessage />}
       
-      {images.length > 0 && <ImageGallery images={images} />}
+      {images.length > 0 && <ImageGallery images={images} onImageClick={openModal} />}
 
-      {images.length > 0 && !isLoading && <LoadMoreBtn onClick={handleLoadMore} />}
+      {images.length > 0 && !isLoading &&<LoadMoreBtn onClick={handleLoadMore} />}
 
       {isLoading && <Loader />}
-      
+
+      <ImageModal
+        isOpen={modalIsOpen}
+        onClose={closeModal}
+        imageUrl={selectedImageUrl}
+      />
     </>
   );
 }
