@@ -18,6 +18,8 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedImageUrl, setSelectedImageUrl] = useState("");
+  const [totalPages, setTotalPages] = useState(0);
+ 
   
 
   useEffect(() => {
@@ -28,8 +30,9 @@ export default function App() {
       try {
         setIsLoading(true);
         setIsError(false);
-        const fetchedImages = await getImages(searchQuery,page);
-        setImages((prevState) => [...prevState, ...fetchedImages]);
+        const fetchedImages = await getImages(searchQuery, page);
+        setImages((prevState) => [...prevState, ...fetchedImages.images]);
+        setTotalPages(fetchedImages.total_pages);
       } catch (error) {
         setIsError(true);
       } finally {
@@ -69,7 +72,7 @@ export default function App() {
       
       {images.length > 0 && <ImageGallery images={images} onImageClick={openModal} />}
 
-      {images.length > 0 && !isLoading &&<LoadMoreBtn onClick={handleLoadMore} />}
+      {images.length > 0 && !isLoading && totalPages > page && <LoadMoreBtn onClick={handleLoadMore} />}
 
       {isLoading && <Loader />}
 
