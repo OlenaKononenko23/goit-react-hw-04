@@ -3,4 +3,13 @@
     font-size: 36px;
     line-height: 1.5;
     text-align: center;
+    display: none;
+}
+
+#root {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 12px;
+    text-align: center;
+    list-style: none;
 }

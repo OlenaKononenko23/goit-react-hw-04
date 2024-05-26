@@ -1,0 +1,38 @@
+.button {
+    padding: 6px;
+    border: 1px solid black;
+    height: 50px;
+    outline: transparent;
+    font-size: 20px;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.form {
+    display: flex;
+    width: 400px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-around;
+    padding: 20px;
+    gap: 60px;
+}
+
+.input {
+    width: 300px;
+    height: 45px;
+    border-radius: 7px;
+    margin-right: 10px;
+    border: 1px solid black;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.header {
+    background-color: blueviolet;
+    width: 1260px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+}
